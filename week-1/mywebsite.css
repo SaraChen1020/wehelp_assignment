@@ -65,8 +65,6 @@ body{
 .promotion{
     background-color: rgba(147, 216, 246, 0.914);
     display:flex;
-    width:595px;
-    flex:auto; /*自動填滿容器*/
     width:100%;
 }
 
