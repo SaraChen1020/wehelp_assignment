@@ -1,5 +1,6 @@
 body{
     margin:0px; /*去除網頁邊界*/
+    overflow-x:hidden; /*隱藏橫向捲軸*/
 }
 
 .top{
@@ -95,7 +96,6 @@ body{
     flex:auto; /*自動填滿容器*/
     justify-content: center;
     align-items: center;
-    background-color: black;
 }
 
 .pic img{
