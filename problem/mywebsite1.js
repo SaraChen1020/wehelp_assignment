@@ -33,6 +33,7 @@ function getData(){
 
         //8張圖文
         newList.splice(0, 2); //從索引0開始 刪除2個元素
+        
         function picture(j){
             //景點首圖first_pic
             let first_pic="https"+newList[j]["file"].split("https")[1];
