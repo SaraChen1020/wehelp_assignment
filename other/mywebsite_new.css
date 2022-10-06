@@ -125,9 +125,18 @@ body{
 
 #btn{
     display:block;
-    margin: 20px auto;
+    margin: 30px auto;
+    border:2px gray solid;
     width:100px;
-    height:25px
+    height:30px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#btn:hover{
+    background-color:rgb(97, 91, 91);
+    color:white;
+    border:0;
 }
 
 @media (max-width:1200px){

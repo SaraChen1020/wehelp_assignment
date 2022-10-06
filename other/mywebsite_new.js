@@ -31,8 +31,10 @@ function getData(){
             
         }
 
-        //8張圖文
         newList.splice(0, 2); //從索引0開始 刪除2個元素
+        
+        //8張圖文
+
         function picture(j){
             //景點首圖first_pic
             let first_pic="https"+newList[j]["file"].split("https")[1];
@@ -54,25 +56,34 @@ function getData(){
             divPic[j].appendChild(title);
         }
         
-        for(let j=0; j<8; j++){
+        //以變數total紀錄目前要抓幾筆資料
+        let total=0;
+        for(let j=total; j<total+8; j++){
                 picture(j);
         }
 
-        let loadMore=document.getElementById("btn")
-        let gallery=document.querySelector(".gallery")
-
+        //8張圖文的架構
         function create(){
             let newdiv=document.createElement("div");
             newdiv.setAttribute("class", "pic");
-            gallery.appendChild(newdiv)
-        
+            let gallery=document.querySelector(".gallery")
+            gallery.appendChild(newdiv);
         }        
 
+    
+        let loadMore=document.getElementById("btn")
+
         loadMore.addEventListener('click', function(){
-            for(let k=8; k<16; k++){
+            total=total+8;
+            if(total >= newList.length-8){
+                loadMore.style.display="none";
+            }
+
+            for(let k=total; k<total+8; k++){
                 create();
                 picture(k)
             }
+
         })
     })
 }
