@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8" />
+        <title>week-2</title>
+    </head>
+    <body>
+        <script>
+            //要求一：
+            function calculate(min, max, step){
+                let result=0
+                for(let i=min; i<=max; i=i+step){
+                    result=result+i
+                }
+                console.log(result)
+            }
+
+            calculate(1, 3, 1);
+            calculate(4, 8, 2);
+            calculate(-1, 2, 2);
+
+            //要求二：
+            function avg(data){
+                data=data.employees; //取出employees列表
+                let length=data.length //可算出employees列表個數為4
+                // console.log(data[0].manager) //可印出false
+                
+                let sum=0;
+                let people=0;
+                for(let i=0; i<length; i++){
+                    if(data[i].manager==false){ //如果列表中的manager值為false
+                        people=people+1; //計算人數+1
+                        sum=sum+data[i].salary; //計算薪水總和
+                    }
+                }
+
+                let result=sum/people;
+                console.log(result)
+            }
+
+            avg({"employees":[{"name":"John","salary":30000,"manager":false},
+                    {"name":"Bob","salary":60000,"manager":true},
+                    {"name":"Jenny","salary":50000,"manager":false},
+                    {"name":"Tony","salary":40000,"manager":false}]});
+
+            //要求三：
+            function func(a){
+                function addsum(b,c){
+                    console.log(a+b*c)
+                }
+                return addsum
+            }
+
+            func(2)(3, 4);
+            func(5)(1, -5);
+            func(-3)(2, 9);
+            
+            //要求四：
+            function maxProduct(nums){
+                let A=[]
+                let N=nums.length //N為4
+                for(let s=0; s<N; s++){ //s:0 1 2 3
+                    f=nums[s]; //nums[s]輪流印出5 20 2 6
+                    for(let i=s+1; i<N; i++){
+                        x=f*nums[i];
+                        A.push(x); //把相乘後的結果放進陣列裡
+                    }
+                }
+                //取陣列中最大值
+                console.log(Math.max.apply(null,A)) //Math.max方法不能接收陣列，利用 apply 的特性，將 A 陣列解構成一個一個的參數給 Math.max 去執行，藉此找到陣列中的最大值。
+            }
+
+            maxProduct([5, 20, 2, 6]);
+            maxProduct([10, -20, 0, 3]);
+            maxProduct([10, -20, 0, -3]);
+            maxProduct([-1, 2]);
+            maxProduct([-1, 0, 2]);
+            maxProduct([5, -1, -2, 0]);
+            maxProduct([-5, -2]);
+
+            //要求五：
+            function twoSum(nums, target){
+                let N=nums.length //N為4
+                for (let s=0; s<N;s++){ //s:0 1 2 3
+                    f=nums[s];
+                    for(let i=s+1; i<N; i++){
+                        x=f+nums[i];
+                        if(x==target){
+                            return [s,i]
+                        }
+                    }
+                }
+            }
+
+            let result=twoSum([2, 11, 7, 15], 9);
+            console.log(result);
+
+            //要求六：
+            function maxZeros(nums){
+            let N=nums.length; //N為4
+            let repeat_time=0; //計算出現0的次數
+            let not_ans=0; //計算不為0的次數
+            let B=[];
+
+            for(let i=0; i<N; i++){
+                x=nums[i];
+                if(x==0){
+                    repeat_time += 1;
+                    B.push(repeat_time);
+                    result=Math.max.apply(null,B);
+                }else{
+                    repeat_time=0;
+                    not_ans+=1;
+                }
+            }
+
+            if (not_ans==N){
+                result=0;
+            }
+
+            console.log(result)
+        }
+
+        maxZeros([0, 1, 0, 0]); // 得到 2
+        maxZeros([1, 0, 0, 0, 0, 1, 0, 1, 0, 0]); // 得到 4
+        maxZeros([1, 1, 1, 1, 1]); // 得到 0
+        maxZeros([0, 0, 0, 1, 1]) // 得到 3
+
+
+        </script>
+    </body>
+</html>
