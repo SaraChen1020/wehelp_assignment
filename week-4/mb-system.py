@@ -46,7 +46,7 @@ def square():
     value=request.args.get("num","")
     return redirect(url_for("result", number=value))
 
-@app.route("/square/<string:number>")
+@app.route("/square/<number>")
 def result(number):
     if int(number) >= 0:
         number=int(number)
