@@ -41,11 +41,6 @@ def signout():
     del session["account"]
     return redirect("/")
 
-@app.route("/square")
-def square():
-    value=request.args.get("num","")
-    return redirect(url_for("result", number=value))
-
 @app.route("/square/<number>")
 def result(number):
     if int(number) >= 0:
