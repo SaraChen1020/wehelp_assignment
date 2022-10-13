@@ -19,8 +19,16 @@
     </form>
     <hr/>
     <div class="system-text">計算正整數的平方</div>
-    <form action="/square">
-        正整數 <input type="number" name="num"><br/>
-        <button>計算</button>
+    <div class="math">
+        正整數 <input type="number" id="number"><br/>
+        <button id="calculateBtn">計算</button>
+    </div>
+    <script>
+        let calculateBtn=document.querySelector("#calculateBtn");
+        calculateBtn.addEventListener('click', function(){
+            let number=document.querySelector("#number").value;
+            window.location.href='/square/' + number
+        })
+    </script>
 </body>
 </html>
