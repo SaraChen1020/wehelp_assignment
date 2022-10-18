@@ -1,4 +1,4 @@
-### 要求三
+### 要求三：SQL CRUD
 - 使⽤ INSERT 指令新增⼀筆資料到 member 資料表中，這筆資料的 username 和 password 欄位必須是 test。接著繼續新增⾄少 4 筆隨意的資料。
     
     `INSERT INTO member(id,name,username,password) VALUES (1,'admin','test','test');`  
@@ -35,7 +35,7 @@
     ![image](https://github.com/SaraChen1020/wehelp_assignment/blob/main/week-5/screenshot/3-7.png)
 
 ---
-### 要求四
+### 要求四：SQL Aggregate Functions
 - 取得 member 資料表中，總共有幾筆資料 (幾位會員)。
 
     `SELECT COUNT(*) FROM member`  
@@ -54,7 +54,7 @@
     ![image](https://github.com/SaraChen1020/wehelp_assignment/blob/main/week-5/screenshot/4-3.png)
 
 ---
-### 要求五(Optional)
+### 要求五：SQL JOIN (Optional)
 - 建立 message 資料表紀錄留言資訊
     
     ![image](https://github.com/SaraChen1020/wehelp_assignment/blob/main/week-5/screenshot/5.png)  
