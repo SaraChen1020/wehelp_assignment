@@ -84,12 +84,14 @@
 
 ### 額外練習
 
-- 根據留言編號取得該留言有哪些會員按讚。
-  → 情境假設：**留言編號１**有哪些會員按讚？  
+- 根據留言編號取得該留言有哪些會員按讚。  
+  → 情境假設：**留言編號１**有哪些會員按讚？
+
   `SELECT message.id,message.content,like.username_wholike FROM message INNER JOIN like ON message.id=like.message_id WHERE message.id=1;`  
   ![image](https://github.com/SaraChen1020/wehelp_assignment/blob/main/week-5/screenshot/6-1.png)
 
-- 會員若是嘗試對留言按讚：要能先檢查是否曾經按過讚，然後才將按讚的數量 +1 並且記錄按讚的會員是誰。
+- 會員若是嘗試對留言按讚：要能先檢查是否曾經按過讚，然後才將按讚的數量 +1 並且記錄按讚的會員是誰。  
   → 情境假設：檢查**會員 sarsara**是否有對**留言編號 1**按過讚？
+
   `SELECT message.id,message.content,like.username_wholike FROM message INNER JOIN like ON message.id=like.message_id WHERE message.id=1 AND like.username_wholike='sarasara';`
   ![image](https://github.com/SaraChen1020/wehelp_assignment/blob/main/week-5/screenshot/6-2.png)
