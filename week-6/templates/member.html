@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <title>會員頁面</title>
+  </head>
+  <body>
+    <div class="top">
+      <div class="title">歡迎光臨，這是會員頁</div>
+    </div>
+    <div class="system-text">嗨，{{ name }}，歡迎登入系統(￣▽￣)ノ</div>
+    <div class="redirect"><a href="/signout">登出系統</a></div>
+    <hr />
+    <div class="system-text">快來留言吧</div>
+    <form action="/message" method="POST">
+      內容 <input type="text" name="content" required /><br />
+      <button>送出</button>
+    </form>
+    <hr />
+    <table class="content-area">
+      {% for i in results %}
+      <tr>
+        <td class="name">{{i[0]}}</td>
+        <td class="content">: {{i[1]}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
