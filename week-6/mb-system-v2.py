@@ -19,8 +19,7 @@ connectionpool = mysql.connector.pooling.MySQLConnectionPool(
   password="159753",
   database="website"
 )
-connection=connectionpool.get_connection()
-mycursor=connection.cursor()
+
 
 @app.route("/")
 def index():
@@ -33,19 +32,21 @@ def signup():
     account=request.form["account"]
     password=request.form["password"]
 
-    sql="SELECT * FROM member WHERE username = %s"
-    mycursor.execute(sql,(account,))
-    # mycursor.execute("SELECT * FROM member WHERE username = %s",[account])
+    connection=connectionpool.get_connection()
+    mycursor=connection.cursor()
+    mycursor.execute("SELECT * FROM member WHERE username = %s",[account])
     myresult=mycursor.fetchone()
 
     if myresult != None:
+        mycursor.close()
+        connection.close()
         return redirect("/error?message=帳號已經被註冊")
-    else:
-        sql="INSERT INTO member (name, username, password) VALUES (%s, %s, %s)"
-        mycursor.execute(sql,(member_name,account,password))
-        # mycursor.execute("INSERT INTO member (name, username, password) VALUES (%s, %s, %s)",[member_name, account, password])
-        connection.commit()
-        return redirect("/")
+
+    mycursor.execute("INSERT INTO member (name, username, password) VALUES (%s, %s, %s)",[member_name, account, password])
+    mycursor.close()
+    connection.commit()
+    connection.close()
+    return redirect("/") 
 
 #登入
 @app.route("/signin", methods=["POST"])
@@ -53,26 +54,36 @@ def signin():
     account=request.form["account"]
     password=request.form["password"]
 
+    connection=connectionpool.get_connection()
+    mycursor=connection.cursor()
     mycursor.execute("SELECT id,name FROM member WHERE username = %s AND password = %s",[account,password])
     myresult=mycursor.fetchone()
 
     if myresult == None:
+        mycursor.close()
+        connection.close()
         return redirect("/error?message=帳號或密碼輸入錯誤")
-    else:
-        session["id"]=myresult[0]
-        session["name"]=myresult[1]
-        return redirect("/member")
+
+    session["id"]=myresult[0]
+    session["name"]=myresult[1]
+    mycursor.close()
+    connection.close()
+    return redirect("/member")
 
 #會員頁面
 @app.route("/member")
 def member():
     if "name" in session:
         name=session["name"]
+        connection=connectionpool.get_connection()
+        mycursor=connection.cursor()
         mycursor.execute("SELECT member.name,message.content FROM member INNER JOIN message WHERE member.id=message.member_id ORDER BY message.time DESC")
         results=mycursor.fetchall()
+        mycursor.close()
+        connection.close()
         return render_template("member.html",name=name,results=results)
-    else:
-        return redirect("/")
+
+    return redirect("/")
 
 #錯誤頁面
 @app.route("/error")
@@ -93,9 +104,12 @@ def message():
     content=request.form["content"]
     member_id=session["id"]
 
+    connection=connectionpool.get_connection()
+    mycursor=connection.cursor()
     mycursor.execute("INSERT INTO message (member_id, content) VALUES (%s, %s)",[member_id, content])
+    mycursor.close()
     connection.commit()
-
+    connection.close()
     return redirect("/member")
 
-app.run(port=3000)
+app.run(port=3000, debug=True)
